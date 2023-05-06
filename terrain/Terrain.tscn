@@ -1,3 +1,8 @@
-[gd_scene format=3 uid="uid://bte0u06ew57gp"]
+[gd_scene load_steps=2 format=3 uid="uid://bte0u06ew57gp"]
+
+[ext_resource type="Script" path="res://terrain/Terrain.cs" id="1_26rrd"]
 
 [node name="Terrain" type="Node3D"]
+script = ExtResource("1_26rrd")
+
+[node name="MeshInstance" type="MeshInstance3D" parent="."]
