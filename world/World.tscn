@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://db4nromufdj65"]
+[gd_scene load_steps=3 format=3 uid="uid://db4nromufdj65"]
+
+[ext_resource type="PackedScene" uid="uid://wogqa6yy6uon" path="res://ant/Ant.tscn" id="1_0dvk7"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_0hl2n"]
 
@@ -7,3 +9,5 @@
 [node name="Ground" type="MeshInstance3D" parent="."]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
 mesh = SubResource("PlaneMesh_0hl2n")
+
+[node name="Ant" parent="." instance=ExtResource("1_0dvk7")]
