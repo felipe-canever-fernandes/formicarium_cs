@@ -6,6 +6,8 @@ public partial class Terrain : Node3D
 
 	[Export]
 	public float CubeSize { get; set; } = 1;
+	[Export]
+	public Vector3 CubePosition { get; set; } = Vector3.Zero;
 
 	public override void _Ready()
 	{
@@ -54,12 +56,10 @@ public partial class Terrain : Node3D
 				new(0, 1, 1),
 			};
 
-			if (CubeSize != 1)
+			for (var i = 0; i < vertices.Length; ++i)
 			{
-				for (var i = 0; i < vertices.Length; ++i)
-				{
-					vertices[i] *= CubeSize;
-				}
+				vertices[i] *= CubeSize;
+				vertices[i] += CubePosition;
 			}
 
 			var arrays = new Godot.Collections.Array();
