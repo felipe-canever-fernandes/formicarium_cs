@@ -1,9 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://db4nromufdj65"]
+[gd_scene load_steps=6 format=3 uid="uid://db4nromufdj65"]
 
 [ext_resource type="PackedScene" uid="uid://wogqa6yy6uon" path="res://ant/Ant.tscn" id="1_0dvk7"]
 [ext_resource type="Script" path="res://world/World.cs" id="1_1gday"]
 [ext_resource type="PackedScene" uid="uid://c1dopouyv0asm" path="res://voxels/Voxels.tscn" id="1_bhkwe"]
 [ext_resource type="PackedScene" uid="uid://bte0u06ew57gp" path="res://terrain/Terrain.tscn" id="1_ijjvq"]
+
+[sub_resource type="Environment" id="Environment_u3i4s"]
+ambient_light_source = 2
+ambient_light_color = Color(0.690196, 0.690196, 0.690196, 1)
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_1gday")
@@ -17,6 +21,9 @@ transform = Transform3D(-0.707107, 0.353553, -0.612372, 0, 0.866025, 0.5, 0.7071
 projection = 1
 size = 20.0
 far = 50.0
+
+[node name="Environment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_u3i4s")
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
 transform = Transform3D(4.37114e-08, 0.5, -0.866025, 1.51421e-07, 0.866025, 0.5, 1, -1.5299e-07, -3.78552e-08, 0, 0, 0)
