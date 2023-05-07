@@ -13,8 +13,14 @@ ambient_light_color = Color(0.690196, 0.690196, 0.690196, 1)
 script = ExtResource("1_1gday")
 
 [node name="Voxels" parent="." instance=ExtResource("1_bhkwe")]
-Size = Vector3i(50, 25, 100)
-LandLevel = 10.0
+Size = Vector3i(50, 50, 50)
+LandLevel = 25.0
+XAmplitude = 3.0
+XFrequency = 0.1
+XPhase = 3.0
+ZAmplitude = 2.0
+ZFrequency = 0.1
+ZPhase = 2.0
 
 [node name="Camera" type="Camera3D" parent="."]
 transform = Transform3D(-0.707107, 0.353553, -0.612373, 0, 0.866026, 0.5, 0.707107, 0.353553, -0.612373, -10, 30, -10)
@@ -34,4 +40,4 @@ shadow_opacity = 0.9
 [node name="Terrain" parent="." instance=ExtResource("1_ijjvq")]
 
 [node name="Ant" parent="." instance=ExtResource("1_0dvk7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 11, 8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 21, 8)

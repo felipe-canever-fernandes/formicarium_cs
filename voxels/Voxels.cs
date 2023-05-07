@@ -28,11 +28,49 @@ public partial class Voxels : Node
 	[Export]
 	public Vector3I Size { get; set; }
 
+	#region FunctionParameters
+
 	/// <summary>
 	/// The height of the land mass in voxel coordinates.
 	/// </summary>
 	[Export]
 	public float LandLevel { get; set; }
+
+	/// <summary>
+	/// The amplitude in x for the cosine.
+	/// </summary>
+	[ExportGroup("X Cosine Parameters", "X")]
+	[Export]
+	public float XAmplitude  { get; set; } = 1;
+	/// <summary>
+	/// The frequency in x for the cosine.
+	/// </summary>
+	[Export]
+	public float XFrequency { get; set; } = 1;
+	/// <summary>
+	/// The phase in x for the cosine.
+	/// </summary>
+	[Export]
+	public float XPhase { get; set; } = 0;
+
+	/// <summary>
+	/// The amplitude in z for the cosine.
+	/// </summary>
+	[ExportGroup("Z Cosine Parameters", "Z")]
+	[Export]
+	public float ZAmplitude  { get; set; } = 1;
+	/// <summary>
+	/// The frequency in z for the cosine.
+	/// </summary>
+	[Export]
+	public float ZFrequency { get; set; } = 1;
+	/// <summary>
+	/// The phase in z for the cosine.
+	/// </summary>
+	[Export]
+	public float ZPhase { get; set; } = 0;
+
+	#endregion
 
 	public override void _Ready()
 	{
@@ -74,7 +112,10 @@ public partial class Voxels : Node
 
 		ForEachVoxel((ref Voxel voxel, Vector3I position) =>
 		{
-			if (position.Y <= LandLevel)
+			var x = XAmplitude * Math.Cos(XFrequency * position.X + XPhase);
+			var z = ZAmplitude * Math.Cos(ZFrequency * position.Z + ZPhase);
+
+			if (position.Y <= x + z + LandLevel)
 			{
 				voxel.Type = VoxelType.Dirt;
 			}
