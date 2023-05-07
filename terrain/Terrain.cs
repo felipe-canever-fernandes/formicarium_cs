@@ -1,11 +1,24 @@
 using Godot;
 using System;
 
+/// <summary>
+/// The procedurally-generated voxel-based world terrain.
+/// </summary>
 public partial class Terrain : Node3D
 {
 
+	/// <summary>
+	/// The size of each side of a cube in world units.
+	/// </summary>
+	/// 
+	/// <value>
+	/// A floating-point number greater than 0.
+	/// </value>
 	[Export]
 	public float CubeSize { get; set; } = 1;
+	/// <summary>
+	/// The position of the cube in world coordinates.
+	/// </summary>
 	[Export]
 	public Vector3 CubePosition { get; set; } = Vector3.Zero;
 
@@ -58,7 +71,7 @@ public partial class Terrain : Node3D
 					sideVertexIndexIndex < Cube.TotalVerticesCountPerSide;
 					++sideVertexIndexIndex
 				)
-			{
+				{
 					var vertexIndexOffset =
 						sideIndex * Cube.UniqueVerticesCountPerSide;
 
