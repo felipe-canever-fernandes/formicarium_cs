@@ -27,8 +27,12 @@ public partial class Terrain : Node3D
 	{
 		if (CubeSize <= 0)
 		{
-			throw new ArgumentException
-				("the terrain's cube size must be greater than 0");
+			throw new ArgumentOutOfRangeException
+			(
+				nameof(CubeSize),
+				CubeSize,
+				"the terrain's cube size must be greater than 0"
+			);
 		}
 
 		var vertices = new List<Vector3>();
