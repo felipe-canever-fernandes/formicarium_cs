@@ -18,16 +18,16 @@ public partial class Terrain : Node3D
 	[Export]
 	public float CubeSize { get; set; } = 1;
 	/// <summary>
-	/// The position of the cube in world coordinates.
+	/// The positions of the cubes in world coordinates.
 	/// </summary>
 	[Export]
-	public Vector3 CubePosition { get; set; } = Vector3.Zero;
+	public Vector3[] CubePositions { get; set; } = new[]{ Vector3.Zero };
 
 	public override void _Ready()
 	{
-		GenerateCube();
+		GenerateCubes();
 
-		void GenerateCube()
+		void GenerateCubes()
 		{
 			if (CubeSize <= 0)
 			{
@@ -39,44 +39,14 @@ public partial class Terrain : Node3D
 			var uniqueVerticesNormals = new List<Vector3>();
 			var verticesIndices = new List<int>();
 
-			for (var sideIndex = 0; sideIndex < Cube.Sides.Length; ++sideIndex)
+			for
+			(
+				var cubeIndex = 0;
+				cubeIndex < CubePositions.Length;
+				++cubeIndex
+			)
 			{
-				var side = Cube.Sides[sideIndex];
-
-				for
-				(
-					var sideUniqueVertexIndex = 0;
-					sideUniqueVertexIndex < Cube.UniqueVerticesCountPerSide;
-					++sideUniqueVertexIndex
-				)
-				{
-					var sideUniqueVertex =
-						Cube.SidesUniqueVertices[side][sideUniqueVertexIndex];
-
-					uniqueVertices.Add
-					(
-						sideUniqueVertex * CubeSize + CubePosition
-					);
-					
-					uniqueVerticesNormals.Add(Cube.SidesNormals[side]);
-				}
-
-				for
-				(
-					var sideVertexIndexIndex = 0;
-					sideVertexIndexIndex < Cube.TotalVerticesCountPerSide;
-					++sideVertexIndexIndex
-				)
-				{
-					var vertexIndexOffset =
-						sideIndex * Cube.UniqueVerticesCountPerSide;
-
-					verticesIndices.Add
-					(
-						Cube.SideVerticesIndices[sideVertexIndexIndex]
-						+ vertexIndexOffset
-					);
-				}
+				GenerateCubeVertices(cubeIndex);
 			}
 
 			var arrays = new Godot.Collections.Array();
@@ -94,6 +64,57 @@ public partial class Terrain : Node3D
 
 			var meshInstance = GetNode<MeshInstance3D>("MeshInstance");
 			meshInstance.Mesh = mesh;
+
+			void GenerateCubeVertices(int cubeIndex)
+			{
+				var totalVertexCount = uniqueVertices.Count;
+
+				for
+				(
+					var sideIndex = 0;
+					sideIndex < Cube.Sides.Length;
+					++sideIndex
+				)
+				{
+					var side = Cube.Sides[sideIndex];
+
+					for
+					(
+						var sideUniqueVertexIndex = 0;
+						sideUniqueVertexIndex < Cube.UniqueVerticesCountPerSide;
+						++sideUniqueVertexIndex
+					)
+					{
+						var sideUniqueVertices = Cube.SidesUniqueVertices[side];
+
+						var sideUniqueVertex =
+							sideUniqueVertices[sideUniqueVertexIndex];
+
+						uniqueVertices.Add
+						(
+							sideUniqueVertex * CubeSize
+							+ CubePositions[cubeIndex]
+						);
+						
+						uniqueVerticesNormals.Add(Cube.SidesNormals[side]);
+					}
+
+					for
+					(
+						var sideVertexIndexIndex = 0;
+						sideVertexIndexIndex < Cube.TotalVerticesCountPerSide;
+						++sideVertexIndexIndex
+					)
+					{
+						verticesIndices.Add
+						(
+							Cube.SideVerticesIndices[sideVertexIndexIndex]
+							+ sideIndex * Cube.UniqueVerticesCountPerSide
+							+ totalVertexCount
+						);
+					}
+				}
+			}
 		}
 	}
 }
