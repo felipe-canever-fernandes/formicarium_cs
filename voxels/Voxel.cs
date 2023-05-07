@@ -1,18 +1,16 @@
-namespace Voxel;
-
 /// <summary>
 /// A terrain voxel.
 /// </summary>
 public struct Voxel
 {
-	public Voxel(Type type = Type.Air) => Type = type;
-	public Type Type { get; set; }
+	public Voxel(VoxelType type = VoxelType.Air) => Type = type;
+	public VoxelType Type { get; set; }
 }
 
 /// <summary>
 /// The type of a terrain voxel.
 /// </summary>
-public enum Type
+public enum VoxelType
 {
 	Air,
 	Dirt,
