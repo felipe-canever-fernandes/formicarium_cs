@@ -17,11 +17,6 @@ public partial class Terrain : Node3D
 	/// </value>
 	[Export]
 	public float CubeSize { get; set; } = 1;
-	/// <summary>
-	/// The positions of the cubes in world coordinates.
-	/// </summary>
-	[Export]
-	public Vector3[] CubePositions { get; set; } = new[]{ Vector3.Zero };
 
 	public override void _Ready()
 	{
@@ -34,13 +29,21 @@ public partial class Terrain : Node3D
 				"the terrain's cube size must be greater than 0"
 			);
 		}
+	}
 
+	public void Generate(Voxels voxels)
+	{
 		var vertices = new List<Vector3>();
 		var normals = new List<Vector3>();
 		var indices = new List<int>();
 
-		for (var c = 0; c < CubePositions.Length; ++c)
+		voxels.ForEachVoxel((ref Voxel voxel, Vector3I position) =>
 		{
+			if (voxel.Type != VoxelType.Dirt)
+			{
+				return;
+			}
+
 			var currentVertexCount = vertices.Count;
 
 			foreach (var side in Cube.Sides)
@@ -49,7 +52,7 @@ public partial class Terrain : Node3D
 				{
 					var vertex = Cube.SidesUniqueVertices[side][v];
 
-					vertices.Add(vertex * CubeSize + CubePositions[c]);
+					vertices.Add(vertex * CubeSize + position);
 					normals.Add(Cube.SidesNormals[side]);
 				}
 
@@ -65,7 +68,7 @@ public partial class Terrain : Node3D
 					);
 				}
 			}
-		}
+		});
 
 		var arrays = new Godot.Collections.Array();
 		arrays.Resize((int)Mesh.ArrayType.Max);

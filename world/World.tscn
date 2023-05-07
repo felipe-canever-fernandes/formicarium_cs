@@ -1,12 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://db4nromufdj65"]
+[gd_scene load_steps=5 format=3 uid="uid://db4nromufdj65"]
 
 [ext_resource type="PackedScene" uid="uid://wogqa6yy6uon" path="res://ant/Ant.tscn" id="1_0dvk7"]
+[ext_resource type="Script" path="res://world/World.cs" id="1_1gday"]
 [ext_resource type="PackedScene" uid="uid://c1dopouyv0asm" path="res://voxels/Voxels.tscn" id="1_bhkwe"]
 [ext_resource type="PackedScene" uid="uid://bte0u06ew57gp" path="res://terrain/Terrain.tscn" id="1_ijjvq"]
 
 [node name="World" type="Node3D"]
+script = ExtResource("1_1gday")
 
 [node name="Voxels" parent="." instance=ExtResource("1_bhkwe")]
+Size = Vector3i(50, 25, 100)
+LandLevel = 10
 
 [node name="Camera" type="Camera3D" parent="."]
 transform = Transform3D(-0.707107, 0.353553, -0.612372, 0, 0.866025, 0.5, 0.707107, 0.353553, -0.612372, -10, 10, -10)
@@ -19,6 +23,5 @@ transform = Transform3D(4.37114e-08, 0.5, -0.866025, 1.51421e-07, 0.866025, 0.5,
 metadata/_edit_lock_ = true
 
 [node name="Terrain" parent="." instance=ExtResource("1_ijjvq")]
-CubePositions = PackedVector3Array(0, 0, 0, 2, 0, 0, 0, 0, 2, 2, 0, 2, 1, 0, 1)
 
 [node name="Ant" parent="." instance=ExtResource("1_0dvk7")]
