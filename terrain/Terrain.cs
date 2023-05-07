@@ -25,96 +25,55 @@ public partial class Terrain : Node3D
 
 	public override void _Ready()
 	{
-		GenerateCubes();
-
-		void GenerateCubes()
+		if (CubeSize <= 0)
 		{
-			if (CubeSize <= 0)
+			throw new ArgumentException
+				("the terrain's cube size must be greater than 0");
+		}
+
+		var vertices = new List<Vector3>();
+		var normals = new List<Vector3>();
+		var indices = new List<int>();
+
+		for (var c = 0; c < CubePositions.Length; ++c)
+		{
+			var currentVertexCount = vertices.Count;
+
+			foreach (var side in Cube.Sides)
 			{
-				throw new ArgumentException
-					("the terrain's cube size must be greater than 0");
-			}
-
-			var uniqueVertices = new List<Vector3>();
-			var uniqueVerticesNormals = new List<Vector3>();
-			var verticesIndices = new List<int>();
-
-			for
-			(
-				var cubeIndex = 0;
-				cubeIndex < CubePositions.Length;
-				++cubeIndex
-			)
-			{
-				GenerateCubeVertices(cubeIndex);
-			}
-
-			var arrays = new Godot.Collections.Array();
-			arrays.Resize((int)Mesh.ArrayType.Max);
-
-			arrays[(int)Mesh.ArrayType.Vertex] = uniqueVertices.ToArray();
-
-			arrays[(int)Mesh.ArrayType.Normal] =
-				uniqueVerticesNormals.ToArray();
-
-			arrays[(int)Mesh.ArrayType.Index] = verticesIndices.ToArray();
-
-			var mesh = new ArrayMesh();
-			mesh.AddSurfaceFromArrays(Mesh.PrimitiveType.Triangles, arrays);
-
-			var meshInstance = GetNode<MeshInstance3D>("MeshInstance");
-			meshInstance.Mesh = mesh;
-
-			void GenerateCubeVertices(int cubeIndex)
-			{
-				var totalVertexCount = uniqueVertices.Count;
-
-				for
-				(
-					var sideIndex = 0;
-					sideIndex < Cube.Sides.Length;
-					++sideIndex
-				)
+				for (var v = 0; v < Cube.UniqueVerticesCountPerSide; ++v)
 				{
-					var side = Cube.Sides[sideIndex];
+					var vertex = Cube.SidesUniqueVertices[side][v];
 
-					for
+					vertices.Add(vertex * CubeSize + CubePositions[c]);
+					normals.Add(Cube.SidesNormals[side]);
+				}
+
+				for (var i = 0; i < Cube.TotalVerticesCountPerSide; ++i)
+				{
+					var sideIndex = (int)side;
+
+					indices.Add
 					(
-						var sideUniqueVertexIndex = 0;
-						sideUniqueVertexIndex < Cube.UniqueVerticesCountPerSide;
-						++sideUniqueVertexIndex
-					)
-					{
-						var sideUniqueVertices = Cube.SidesUniqueVertices[side];
-
-						var sideUniqueVertex =
-							sideUniqueVertices[sideUniqueVertexIndex];
-
-						uniqueVertices.Add
-						(
-							sideUniqueVertex * CubeSize
-							+ CubePositions[cubeIndex]
-						);
-						
-						uniqueVerticesNormals.Add(Cube.SidesNormals[side]);
-					}
-
-					for
-					(
-						var sideVertexIndexIndex = 0;
-						sideVertexIndexIndex < Cube.TotalVerticesCountPerSide;
-						++sideVertexIndexIndex
-					)
-					{
-						verticesIndices.Add
-						(
-							Cube.SideVerticesIndices[sideVertexIndexIndex]
-							+ sideIndex * Cube.UniqueVerticesCountPerSide
-							+ totalVertexCount
-						);
-					}
+						Cube.SideVerticesIndices[i]
+						+ sideIndex * Cube.UniqueVerticesCountPerSide
+						+ currentVertexCount
+					);
 				}
 			}
 		}
+
+		var arrays = new Godot.Collections.Array();
+		arrays.Resize((int)Mesh.ArrayType.Max);
+
+		arrays[(int)Mesh.ArrayType.Vertex] = vertices.ToArray();
+		arrays[(int)Mesh.ArrayType.Normal] = normals.ToArray();
+		arrays[(int)Mesh.ArrayType.Index] = indices.ToArray();
+
+		var mesh = new ArrayMesh();
+		mesh.AddSurfaceFromArrays(Mesh.PrimitiveType.Triangles, arrays);
+
+		var meshInstance = GetNode<MeshInstance3D>("MeshInstance");
+		meshInstance.Mesh = mesh;
 	}
 }
