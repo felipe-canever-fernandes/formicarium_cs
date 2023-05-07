@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 /// <summary>
 /// The procedurally-generated voxel-based world terrain.
@@ -34,12 +35,9 @@ public partial class Terrain : Node3D
 					("the terrain's cube size must be greater than 0");
 			}
 
-			var uniqueVertices = new Vector3[Cube.VerticesCount];
-			var uniqueVerticesNormals = new Vector3[Cube.VerticesCount];
-			var verticesIndices = new int[Cube.TotalVerticesCount];
-
-			var uniqueVertexIndex = 0;
-			var vertexIndexIndex = 0;
+			var uniqueVertices = new List<Vector3>();
+			var uniqueVerticesNormals = new List<Vector3>();
+			var verticesIndices = new List<int>();
 
 			for (var sideIndex = 0; sideIndex < Cube.Sides.Length; ++sideIndex)
 			{
@@ -55,13 +53,12 @@ public partial class Terrain : Node3D
 					var sideUniqueVertex =
 						Cube.SidesUniqueVertices[side][sideUniqueVertexIndex];
 
-					uniqueVertices[uniqueVertexIndex] =
-						sideUniqueVertex * CubeSize + CubePosition;
+					uniqueVertices.Add
+					(
+						sideUniqueVertex * CubeSize + CubePosition
+					);
 					
-					uniqueVerticesNormals[uniqueVertexIndex] =
-						Cube.SidesNormals[side];
-
-					++uniqueVertexIndex;
+					uniqueVerticesNormals.Add(Cube.SidesNormals[side]);
 				}
 
 				for
@@ -74,20 +71,23 @@ public partial class Terrain : Node3D
 					var vertexIndexOffset =
 						sideIndex * Cube.UniqueVerticesCountPerSide;
 
-					verticesIndices[vertexIndexIndex] =
+					verticesIndices.Add
+					(
 						Cube.SideVerticesIndices[sideVertexIndexIndex]
-						+ vertexIndexOffset;
-					
-					++vertexIndexIndex;
+						+ vertexIndexOffset
+					);
 				}
 			}
 
 			var arrays = new Godot.Collections.Array();
 			arrays.Resize((int)Mesh.ArrayType.Max);
 
-			arrays[(int)Mesh.ArrayType.Vertex] = uniqueVertices;
-			arrays[(int)Mesh.ArrayType.Normal] = uniqueVerticesNormals;
-			arrays[(int)Mesh.ArrayType.Index] = verticesIndices;
+			arrays[(int)Mesh.ArrayType.Vertex] = uniqueVertices.ToArray();
+
+			arrays[(int)Mesh.ArrayType.Normal] =
+				uniqueVerticesNormals.ToArray();
+
+			arrays[(int)Mesh.ArrayType.Index] = verticesIndices.ToArray();
 
 			var mesh = new ArrayMesh();
 			mesh.AddSurfaceFromArrays(Mesh.PrimitiveType.Triangles, arrays);
