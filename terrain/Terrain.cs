@@ -1,7 +1,12 @@
 using Godot;
+using System;
 
 public partial class Terrain : Node3D
 {
+
+	[Export]
+	public float CubeSize { get; set; } = 1;
+
 	public override void _Ready()
 	{
 		var meshInstance = GetNode<MeshInstance3D>("MeshInstance");
@@ -9,10 +14,13 @@ public partial class Terrain : Node3D
 
 		ArrayMesh CreateCubeMesh()
 		{
-			var arrays = new Godot.Collections.Array();
-			arrays.Resize((int)Mesh.ArrayType.Max);
+			if (CubeSize <= 0)
+			{
+				throw new ArgumentException
+					("the terrain's cube size must be greater than 0");
+			}
 
-			arrays[(int)Mesh.ArrayType.Vertex] = new Vector3[]
+			var vertices = new Vector3[]
 			{
 				// Face 0
 				new(0, 0, 0),
@@ -45,6 +53,19 @@ public partial class Terrain : Node3D
 				new(1, 1, 1),
 				new(0, 1, 1),
 			};
+
+			if (CubeSize != 1)
+			{
+				for (var i = 0; i < vertices.Length; ++i)
+				{
+					vertices[i] *= CubeSize;
+				}
+			}
+
+			var arrays = new Godot.Collections.Array();
+			arrays.Resize((int)Mesh.ArrayType.Max);
+
+			arrays[(int)Mesh.ArrayType.Vertex] = vertices;
 
 			arrays[(int)Mesh.ArrayType.Index] = new[]
 			{
