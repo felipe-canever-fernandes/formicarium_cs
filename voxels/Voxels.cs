@@ -32,7 +32,7 @@ public partial class Voxels : Node
 	/// The height of the land mass in voxel coordinates.
 	/// </summary>
 	[Export]
-	public int LandLevel { get; set; }
+	public float LandLevel { get; set; }
 
 	public override void _Ready()
 	{

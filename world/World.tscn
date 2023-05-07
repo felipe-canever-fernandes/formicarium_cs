@@ -14,7 +14,7 @@ script = ExtResource("1_1gday")
 
 [node name="Voxels" parent="." instance=ExtResource("1_bhkwe")]
 Size = Vector3i(50, 25, 100)
-LandLevel = 10
+LandLevel = 10.0
 
 [node name="Camera" type="Camera3D" parent="."]
 transform = Transform3D(-0.707107, 0.353553, -0.612373, 0, 0.866026, 0.5, 0.707107, 0.353553, -0.612373, -10, 30, -10)
