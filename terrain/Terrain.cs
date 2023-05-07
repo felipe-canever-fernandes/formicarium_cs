@@ -24,10 +24,9 @@ public partial class Terrain : Node3D
 
 	public override void _Ready()
 	{
-		var meshInstance = GetNode<MeshInstance3D>("MeshInstance");
-		meshInstance.Mesh = CreateCubeMesh();
+		GenerateCube();
 
-		ArrayMesh CreateCubeMesh()
+		void GenerateCube()
 		{
 			if (CubeSize <= 0)
 			{
@@ -93,7 +92,8 @@ public partial class Terrain : Node3D
 			var mesh = new ArrayMesh();
 			mesh.AddSurfaceFromArrays(Mesh.PrimitiveType.Triangles, arrays);
 
-			return mesh;
+			var meshInstance = GetNode<MeshInstance3D>("MeshInstance");
+			meshInstance.Mesh = mesh;
 		}
 	}
 }
