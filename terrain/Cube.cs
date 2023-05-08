@@ -6,33 +6,6 @@ using System.Collections.Generic;
 /// </summary>
 public static class Cube
 {
-	public enum Side
-	{
-		Front,
-		Right,
-		Back,
-		Left,
-		Bottom,
-		Top,
-	}
-
-	/// <summary>
-	/// A list of all the possible sides of a cube.
-	/// </summary>
-	/// 
-	/// <value>
-	/// All the enumerators of <see cref="Side"/>.
-	/// </value>
-	public static Side[] Sides { get; } = new[]
-	{
-		Side.Front,
-		Side.Right,
-		Side.Back,
-		Side.Left,
-		Side.Bottom,
-		Side.Top,
-	};
-
 	/// <summary>
 	/// The number of vertices in a triangle.
 	/// </summary>
@@ -55,11 +28,11 @@ public static class Cube
 	/// <value>
 	/// A key-value pair from the side of a cube to a list of vertices.
 	/// </value>
-	public static Dictionary<Side, Vector3[]> SidesUniqueVertices { get; } =
-		new()
+	public static Dictionary<CubeSides.Side, Vector3[]> SidesUniqueVertices
+	{ get; } = new()
 	{
 		{
-			Side.Front,
+			CubeSides.Side.Front,
 
 			new Vector3[]
 			{
@@ -70,7 +43,7 @@ public static class Cube
 			}
 		},
 		{
-			Side.Right,
+			CubeSides.Side.Right,
 
 			new Vector3[]
 			{
@@ -81,7 +54,7 @@ public static class Cube
 			}
 		},
 		{
-			Side.Back,
+			CubeSides.Side.Back,
 
 			new Vector3[]
 			{
@@ -92,7 +65,7 @@ public static class Cube
 			}
 		},
 		{
-			Side.Left,
+			CubeSides.Side.Left,
 
 			new Vector3[]
 			{
@@ -103,7 +76,7 @@ public static class Cube
 			}
 		},
 		{
-			Side.Bottom,
+			CubeSides.Side.Bottom,
 
 			new Vector3[]
 			{
@@ -114,7 +87,7 @@ public static class Cube
 			}
 		},
 		{
-			Side.Top,
+			CubeSides.Side.Top,
 
 			new Vector3[]
 			{
@@ -133,14 +106,15 @@ public static class Cube
 	/// <value>
 	/// A key-value pair from the side of a cube to a vector.
 	/// </value>
-	public static Dictionary<Side, Vector3> SidesNormals { get; } = new()
+	public static Dictionary<CubeSides.Side, Vector3> SidesNormals
+	{ get; } = new()
 	{
-		{Side.Front,	new( 0,  0, -1)},
-		{Side.Right,	new( 1,  0,  0)},
-		{Side.Back,		new( 0,  0,  1)},
-		{Side.Left,		new(-1,  0,  0)},
-		{Side.Bottom,	new( 0, -1,  0)},
-		{Side.Top,		new( 0,  1,  0)},
+		{CubeSides.Side.Front,	new( 0,  0, -1)},
+		{CubeSides.Side.Right,	new( 1,  0,  0)},
+		{CubeSides.Side.Back,		new( 0,  0,  1)},
+		{CubeSides.Side.Left,		new(-1,  0,  0)},
+		{CubeSides.Side.Bottom,	new( 0, -1,  0)},
+		{CubeSides.Side.Top,		new( 0,  1,  0)},
 	};
 
 	/// <summary>
@@ -166,7 +140,7 @@ public static class Cube
 	/// An integer greater than 0.
 	/// </value>
 	public static int UniqueVerticesCountPerSide { get; } =
-		SidesUniqueVertices[Sides[0]].Length;
+		SidesUniqueVertices[CubeSides.Sides[0]].Length;
 
 	/// <summary>
 	/// The number of vertices in a cube when taking into account the number of
@@ -177,7 +151,7 @@ public static class Cube
 	/// An integer greater than 0.
 	/// </value>
 	public static int VerticesCount { get; } =
-		UniqueVerticesCountPerSide * Sides.Length;
+		UniqueVerticesCountPerSide * CubeSides.Sides.Length;
 	
 	/// <summary>
 	/// The total number of vertices in a cube.
@@ -187,5 +161,5 @@ public static class Cube
 	/// An integer greater than 0.
 	/// </value>
 	public static int TotalVerticesCount { get; } =
-		TotalVerticesCountPerSide * Sides.Length;
+		TotalVerticesCountPerSide * CubeSides.Sides.Length;
 }
