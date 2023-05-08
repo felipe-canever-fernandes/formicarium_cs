@@ -10,7 +10,7 @@ public partial class World : Node3D
 	public override void _Ready()
 	{
 		var voxels = GetNode<Voxels.Voxels>("Voxels");
-		var terrain = GetNode<Terrain>("Terrain");
+		var terrain = GetNode<Terrain.Terrain>("Terrain");
 
 		terrain.Generate(voxels);
 	}

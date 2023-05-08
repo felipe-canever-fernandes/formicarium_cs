@@ -1,6 +1,8 @@
 using Godot;
 using System.Collections.Generic;
 
+namespace Formicarium.Terrain;
+
 /// <summary>
 /// Contains information for building a 3D cube mesh.
 /// </summary>

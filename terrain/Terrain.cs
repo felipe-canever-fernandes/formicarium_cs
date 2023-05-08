@@ -2,6 +2,8 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
+namespace Formicarium.Terrain;
+
 /// <summary>
 /// The procedurally-generated voxel-based world terrain.
 /// </summary>
@@ -31,19 +33,15 @@ public partial class Terrain : Node3D
 		}
 	}
 
-	public void Generate(Formicarium.Voxels.Voxels voxels)
+	public void Generate(Voxels.Voxels voxels)
 	{
 		var vertices = new List<Vector3>();
 		var normals = new List<Vector3>();
 		var indices = new List<int>();
 
-		voxels.ForEachVoxel
-		((
-			ref Formicarium.Voxels.Voxel voxel,
-			Vector3I position
-		) =>
+		voxels.ForEachVoxel((ref Voxels.Voxel voxel, Vector3I position) =>
 		{
-			if (voxel.Type != Formicarium.Voxels.Type.Dirt)
+			if (voxel.Type != Voxels.Type.Dirt)
 			{
 				return;
 			}
