@@ -31,15 +31,19 @@ public partial class Terrain : Node3D
 		}
 	}
 
-	public void Generate(Voxels voxels)
+	public void Generate(Formicarium.Voxels.Voxels voxels)
 	{
 		var vertices = new List<Vector3>();
 		var normals = new List<Vector3>();
 		var indices = new List<int>();
 
-		voxels.ForEachVoxel((ref Voxel voxel, Vector3I position) =>
+		voxels.ForEachVoxel
+		((
+			ref Formicarium.Voxels.Voxel voxel,
+			Vector3I position
+		) =>
 		{
-			if (voxel.Type != VoxelType.Dirt)
+			if (voxel.Type != Formicarium.Voxels.VoxelType.Dirt)
 			{
 				return;
 			}

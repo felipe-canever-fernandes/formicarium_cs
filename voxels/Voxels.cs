@@ -1,6 +1,8 @@
 using Godot;
 using System;
 
+namespace Formicarium.Voxels;
+
 /// <summary>
 /// The cells that make up the world.
 /// </summary>

@@ -1,3 +1,5 @@
+namespace Formicarium.Voxels;
+
 /// <summary>
 /// A terrain voxel.
 /// </summary>
