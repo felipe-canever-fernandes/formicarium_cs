@@ -131,14 +131,7 @@ public partial class Voxels : Node
 	/// </param>
 	public void ForEachVoxel(VoxelOperation voxelOperation)
 	{
-		if (voxelOperation is null)
-		{
-			throw new ArgumentNullException
-			(
-				nameof(voxelOperation),
-				"the voxel operation must not be null"
-			);
-		}
+		ArgumentNullException.ThrowIfNull(nameof(voxelOperation));
 
 		for (var x = 0; x < _voxels.GetLength(0); ++x)
 		{
