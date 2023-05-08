@@ -1,5 +1,7 @@
 using Godot;
 
+namespace Formicarium.World;
+
 /// <summary>
 /// The game world, responsible for managing everything.
 /// </summary>
