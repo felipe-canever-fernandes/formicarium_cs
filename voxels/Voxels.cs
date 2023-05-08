@@ -119,7 +119,7 @@ public partial class Voxels : Node
 
 			if (position.Y <= x + z + LandLevel)
 			{
-				voxel.Type = VoxelType.Dirt;
+				voxel.Type = Type.Dirt;
 			}
 		});
 	}

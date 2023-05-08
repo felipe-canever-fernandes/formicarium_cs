@@ -43,7 +43,7 @@ public partial class Terrain : Node3D
 			Vector3I position
 		) =>
 		{
-			if (voxel.Type != Formicarium.Voxels.VoxelType.Dirt)
+			if (voxel.Type != Formicarium.Voxels.Type.Dirt)
 			{
 				return;
 			}

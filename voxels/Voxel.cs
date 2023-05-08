@@ -5,14 +5,14 @@ namespace Formicarium.Voxels;
 /// </summary>
 public struct Voxel
 {
-	public Voxel(VoxelType type = VoxelType.Air) => Type = type;
-	public VoxelType Type { get; set; }
+	public Voxel(Type type = Type.Air) => Type = type;
+	public Type Type { get; set; }
 }
 
 /// <summary>
 /// The type of a terrain voxel.
 /// </summary>
-public enum VoxelType
+public enum Type
 {
 	Air,
 	Dirt,
