@@ -46,7 +46,7 @@ public partial class Terrain : Node3D
 
 			var currentVertexCount = vertices.Count;
 
-			foreach (var side in Cube.Sides)
+			foreach (var side in CubeSides.Sides)
 			{
 				for (var v = 0; v < Cube.UniqueVerticesCountPerSide; ++v)
 				{
