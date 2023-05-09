@@ -9,30 +9,6 @@ namespace Formicarium.Terrain;
 /// </summary>
 public partial class Terrain : Node3D
 {
-
-	/// <summary>
-	/// The size of each side of a cube in world units.
-	/// </summary>
-	/// 
-	/// <value>
-	/// A floating-point number greater than 0.
-	/// </value>
-	[Export]
-	public float CubeSize { get; set; } = 1;
-
-	public override void _Ready()
-	{
-		if (CubeSize <= 0)
-		{
-			throw new ArgumentOutOfRangeException
-			(
-				nameof(CubeSize),
-				CubeSize,
-				"the terrain's cube size must be greater than 0"
-			);
-		}
-	}
-
 	public void Generate(Voxels.Voxels voxels)
 	{
 		var vertices = new List<Vector3>();
@@ -54,7 +30,7 @@ public partial class Terrain : Node3D
 				{
 					var vertex = Cube.SidesUniqueVertices[side][v];
 
-					vertices.Add(vertex * CubeSize + position);
+					vertices.Add(vertex + position);
 					normals.Add(Cube.SidesNormals[side]);
 				}
 
