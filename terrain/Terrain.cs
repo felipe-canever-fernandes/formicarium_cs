@@ -15,7 +15,7 @@ public partial class Terrain : Node3D
 		var normals = new List<Vector3>();
 		var indices = new List<int>();
 
-		voxels.ForEachVoxel((ref Voxels.Voxel voxel, Vector3I position) =>
+		voxels.ForEachVoxel((Voxels.Voxel voxel, Vector3I position) =>
 		{
 			if (voxel.Type != Voxels.Type.Dirt)
 			{

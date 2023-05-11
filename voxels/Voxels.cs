@@ -17,7 +17,7 @@ public partial class Voxels : Node
 	/// 
 	/// <param name="voxel">The current voxel.</param>
 	/// <param name="position">The current voxel's position.</param>
-	public delegate void VoxelOperation(ref Voxel voxel, Vector3I position);
+	public delegate void VoxelOperation(Voxel voxel, Vector3I position);
 
 	/// <summary>
 	/// The 3D size of the world in voxels.
@@ -112,16 +112,29 @@ public partial class Voxels : Node
 
 		_voxels = new Voxel[Size.X, Size.Y, Size.Z];
 
-		ForEachVoxel((ref Voxel voxel, Vector3I position) =>
+		for (var x = 0; x < _voxels.GetLength(0); ++x)
 		{
-			var x = XAmplitude * Math.Cos(XFrequency * position.X + XPhase);
-			var z = ZAmplitude * Math.Cos(ZFrequency * position.Z + ZPhase);
-
-			if (position.Y <= x + z + LandLevel)
+			for (var y = 0; y < _voxels.GetLength(1); ++y)
 			{
-				voxel.Type = Type.Dirt;
+				for (var z = 0; z < _voxels.GetLength(2); ++z)
+				{
+					var voxel = new Voxel();
+
+					var xHeight =
+						XAmplitude * Math.Cos(XFrequency * x + XPhase);
+
+					var zHeight =
+						ZAmplitude * Math.Cos(ZFrequency * z + ZPhase); 
+
+					if (y <= xHeight + zHeight + LandLevel)
+					{
+						voxel.Type = Type.Dirt;
+					}
+
+					_voxels[x, y, z] = voxel;
+				}
 			}
-		});
+		}
 	}
 
 	/// <summary>
@@ -141,10 +154,10 @@ public partial class Voxels : Node
 			{
 				for (var z = 0; z < _voxels.GetLength(2); ++z)
 				{
-					ref var voxel = ref _voxels[x, y, z];
+					var voxel = _voxels[x, y, z];
 					var position = new Vector3I(x, y, z);
 
-					voxelOperation.Invoke(ref voxel, position);
+					voxelOperation.Invoke(voxel, position);
 				}
 			}
 		}
