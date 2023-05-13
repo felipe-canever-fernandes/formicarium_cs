@@ -148,12 +148,7 @@ public partial class Voxels : Node
 	{
 		get
 		{
-			if
-			(
-				position.X < 0 || position.X >= Size.X ||
-				position.Y < 0 || position.Y >= Size.Y ||
-				position.Z < 0 || position.Z >= Size.Z
-			)
+			if (!GetIsValidPosition(position))
 			{
 				return null;
 			}
@@ -187,4 +182,21 @@ public partial class Voxels : Node
 			}
 		}
 	}
+
+	/// <summary>
+	/// Whether the given position corresponds to a voxel.
+	/// </summary>
+	///
+	/// <param name="position">
+	/// The voxel position.
+	/// </param>
+	///
+	/// <returns>
+	/// True if the voxel position corresponds to a valid position, false
+	/// otherwise.
+	/// </returns>
+	private bool GetIsValidPosition(Vector3I position) =>
+		position.X >= 0 && position.X < Size.X &&
+		position.Y >= 0 && position.Y < Size.Y &&
+		position.Z >= 0 && position.Z < Size.Z;
 }
