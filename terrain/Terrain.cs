@@ -24,7 +24,7 @@ public partial class Terrain : Node3D
 				return;
 			}
 
-			foreach (var side in CubeSides.Sides)
+			foreach (var side in voxels.GetVisibleSides(position))
 			{
 				for (var v = 0; v < Cube.UniqueVerticesCountPerSide; ++v)
 				{
