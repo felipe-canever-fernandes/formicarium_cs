@@ -138,6 +138,26 @@ public partial class Voxels : Node
 	}
 
 	/// <summary>
+	/// The voxel at the given position.
+	/// </summary>
+	/// 
+	/// <value>
+	/// A voxel if the position is valid or null otherwise.
+	/// </value>
+	public Voxel this[Vector3I position]
+	{
+		get
+		{
+			if (position < Vector3I.Zero || position >= Size)
+			{
+				return null;
+			}
+
+			return _voxels[position.X, position.Y, position.Z];
+		}
+	}
+
+	/// <summary>
 	/// Applies an operation onto every voxel.
 	/// </summary>
 	/// 
