@@ -24,7 +24,7 @@ ZFrequency = 0.1
 ZPhase = 2.0
 
 [node name="Camera" type="Camera3D" parent="."]
-transform = Transform3D(-0.707107, 0.353553, -0.612373, 0, 0.866026, 0.5, 0.707107, 0.353553, -0.612373, -10, 30, -10)
+transform = Transform3D(-0.707107, 0.353553, -0.612373, 0, 0.866026, 0.5, 0.707107, 0.353553, -0.612373, -5, 5, -5)
 size = 30.0
 
 [node name="Environment" type="WorldEnvironment" parent="."]

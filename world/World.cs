@@ -17,8 +17,12 @@ public partial class World : Node3D
 	public override void _Ready()
 	{
 		var voxels = GetNode<Voxels.Voxels>("Voxels");
+		var ant = GetNode<Ant>("Ant");
+		var camera = GetNode<Camera3D>("Camera");
+
 		GenerateTerrain();
-		PlaceAntOnGround();
+		PlaceAntOnGround(out Vector3 originalCameraOffsetFromAnt);
+		PlaceCamera(originalCameraOffsetFromAnt);
 
 		void GenerateTerrain()
 		{
@@ -26,7 +30,7 @@ public partial class World : Node3D
 			terrain.Generate(voxels);
 		}
 
-		void PlaceAntOnGround()
+		void PlaceAntOnGround(out Vector3 originalCameraOffsetFromAnt)
 		{
 			var position = (Vector3I)AntPosition;
 
@@ -38,8 +42,13 @@ public partial class World : Node3D
 				}
 			}
 
-			var ant = GetNode<Ant>("Ant");
+			originalCameraOffsetFromAnt = camera.Position - ant.Position;
 			ant.Position = AntPosition with { Y = position.Y + 1 };
+		}
+	
+		void PlaceCamera(Vector3 cameraOffsetFromAnt)
+		{
+			camera.Position = ant.Position + cameraOffsetFromAnt;
 		}
 	}
 }
