@@ -40,4 +40,4 @@ shadow_opacity = 0.9
 [node name="Terrain" parent="." instance=ExtResource("1_ijjvq")]
 
 [node name="Ant" parent="." instance=ExtResource("1_0dvk7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 21, 8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 8)
