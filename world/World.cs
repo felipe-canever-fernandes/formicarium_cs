@@ -7,10 +7,16 @@ namespace Formicarium.World;
 /// </summary>
 public partial class World : Node3D
 {
+	/// <summary>
+	/// The initial ant position. The Y position will be determined
+	/// automatically based on the terrain.
+	/// </summary>
+	[Export]
+	private Vector3 AntPosition { get; set; }
+
 	public override void _Ready()
 	{
 		var voxels = GetNode<Voxels.Voxels>("Voxels");
-
 		GenerateTerrain();
 		PlaceAntOnGround();
 
@@ -22,8 +28,7 @@ public partial class World : Node3D
 
 		void PlaceAntOnGround()
 		{
-			var ant = GetNode<Ant>("Ant");
-			var position = (Vector3I)ant.Position;
+			var position = (Vector3I)AntPosition;
 
 			for (position.Y = voxels.Size.Y - 1; position.Y >= 0; --position.Y)
 			{
@@ -33,7 +38,8 @@ public partial class World : Node3D
 				}
 			}
 
-			ant.Position = ant.Position with { Y = position.Y + 1 };
+			var ant = GetNode<Ant>("Ant");
+			ant.Position = AntPosition with { Y = position.Y + 1 };
 		}
 	}
 }
