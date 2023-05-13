@@ -199,6 +199,47 @@ public partial class Voxels : Node
 	}
 
 	/// <summary>
+	/// Gives all the visible sides for the voxel at the given position.
+	/// </summary>
+	/// 
+	/// <param name="position">
+	/// The position of the voxel.
+	/// </param>
+	/// 
+	/// <returns>
+	/// A list containing enumerators for all the visible sides.
+	/// </returns>
+	public List<CubeSides.Side> GetVisibleSides(Vector3I position)
+	{
+		if (!GetIsValidPosition(position))
+		{
+			return null;
+		}
+
+		var visibleSides =
+			new List<CubeSides.Side>(capacity: _adjacentVoxelsOffsets.Count);
+
+		foreach (var (side, offset) in _adjacentVoxelsOffsets)
+		{
+			var adjacentVoxel = this[position + offset];
+			
+			if (adjacentVoxel is null)
+			{
+				continue;
+			}
+
+			if (adjacentVoxel.Type == Type.Dirt)
+			{
+				continue;
+			}
+
+			visibleSides.Add(side);
+		}
+
+		return visibleSides;
+	}
+
+	/// <summary>
 	/// Whether the given position corresponds to a voxel.
 	/// </summary>
 	///
