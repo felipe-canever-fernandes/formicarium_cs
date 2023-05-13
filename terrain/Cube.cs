@@ -113,10 +113,10 @@ public static class Cube
 	{
 		{CubeSides.Side.Front,	new( 0,  0, -1)},
 		{CubeSides.Side.Right,	new( 1,  0,  0)},
-		{CubeSides.Side.Back,		new( 0,  0,  1)},
-		{CubeSides.Side.Left,		new(-1,  0,  0)},
+		{CubeSides.Side.Back,	new( 0,  0,  1)},
+		{CubeSides.Side.Left,	new(-1,  0,  0)},
 		{CubeSides.Side.Bottom,	new( 0, -1,  0)},
-		{CubeSides.Side.Top,		new( 0,  1,  0)},
+		{CubeSides.Side.Top,	new( 0,  1,  0)},
 	};
 
 	/// <summary>
