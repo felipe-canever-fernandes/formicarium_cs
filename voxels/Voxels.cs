@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 namespace Formicarium.Voxels;
 
@@ -8,6 +9,20 @@ namespace Formicarium.Voxels;
 /// </summary>
 public partial class Voxels : Node
 {
+	/// <summary>
+	/// The position offset to get to an adjacent voxel.
+	/// </summary>
+	private static readonly Dictionary<CubeSides.Side, Vector3I>
+		_adjacentVoxelsOffsets = new()
+	{
+		{CubeSides.Side.Front,	new( 0,  0, -1)},
+		{CubeSides.Side.Right,	new( 1,  0,  0)},
+		{CubeSides.Side.Back,	new( 0,  0,  1)},
+		{CubeSides.Side.Left,	new(-1,  0,  0)},
+		{CubeSides.Side.Bottom,	new( 0, -1,  0)},
+		{CubeSides.Side.Top,	new( 0,  1,  0)},
+	};
+
 	private Voxel[,,] _voxels;
 
 	/// <summary>
