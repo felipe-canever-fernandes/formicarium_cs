@@ -148,7 +148,12 @@ public partial class Voxels : Node
 	{
 		get
 		{
-			if (position < Vector3I.Zero || position >= Size)
+			if
+			(
+				position.X < 0 || position.X >= Size.X ||
+				position.Y < 0 || position.Y >= Size.Y ||
+				position.Z < 0 || position.Z >= Size.Z
+			)
 			{
 				return null;
 			}
