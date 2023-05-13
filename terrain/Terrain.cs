@@ -15,14 +15,14 @@ public partial class Terrain : Node3D
 		var normals = new List<Vector3>();
 		var indices = new List<int>();
 
+		var faceCount = 0;
+
 		voxels.ForEachVoxel((Voxels.Voxel voxel, Vector3I position) =>
 		{
 			if (voxel.Type != Voxels.Type.Dirt)
 			{
 				return;
 			}
-
-			var currentVertexCount = vertices.Count;
 
 			foreach (var side in CubeSides.Sides)
 			{
@@ -41,10 +41,11 @@ public partial class Terrain : Node3D
 					indices.Add
 					(
 						Cube.SideVerticesIndices[i]
-						+ sideIndex * Cube.UniqueVerticesCountPerSide
-						+ currentVertexCount
+						+ Cube.UniqueVerticesCountPerSide * faceCount
 					);
 				}
+
+				++faceCount;
 			}
 		});
 
