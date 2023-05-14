@@ -78,7 +78,7 @@ internal partial class Voxels : Node
 	/// The height of the land mass in voxel coordinates.
 	/// </summary>
 	[Export]
-	public float LandLevel { get; set; }
+	public float LandLevel { get; private set; }
 
 	/// <summary>
 	/// The amplitude in x for the cosine.
