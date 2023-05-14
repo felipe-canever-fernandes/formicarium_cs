@@ -85,7 +85,7 @@ internal partial class Voxels : Node
 	/// </summary>
 	[ExportGroup("X Cosine Parameters", "X")]
 	[Export]
-	public float XAmplitude  { get; set; } = 1;
+	public float XAmplitude  { get; private set; } = 1;
 	/// <summary>
 	/// The frequency in x for the cosine.
 	/// </summary>
