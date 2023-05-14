@@ -23,6 +23,7 @@ internal partial class Voxels : Node
 		{CubeSides.Side.Top,	new( 0,  1,  0)},
 	};
 
+	private Vector3I _size;
 	private Voxel[,,] _voxels;
 
 	/// <summary>
@@ -43,7 +44,33 @@ internal partial class Voxels : Node
 	/// component must be greater than 0.
 	/// </value>
 	[Export]
-	public Vector3I Size { get; set; }
+	public Vector3I Size
+	{
+		get => _size;
+
+		private set
+		{
+			if (value.X <= 0)
+			{
+				throw new ArgumentOutOfRangeException
+					("the voxels' x size must be greater than 0");
+			}
+
+			if (value.Y <= 0)
+			{
+				throw new ArgumentOutOfRangeException
+					("the voxels' y size must be greater than 0");
+			}
+
+			if (value.Z <= 0)
+			{
+				throw new ArgumentOutOfRangeException
+					("the voxels' z size must be greater than 0");
+			}
+
+			_size = value;
+		}
+	}
 
 	#region FunctionParameters
 
@@ -91,40 +118,6 @@ internal partial class Voxels : Node
 
 	public override void _Ready()
 	{
-		// Check size.
-
-		if (Size.X <= 0)
-		{
-			throw new ArgumentOutOfRangeException
-			(
-				nameof(Size.X),
-				Size.X,
-				"the voxels' x size must be greater than 0"
-			);
-		}
-
-		if (Size.Y <= 0)
-		{
-			throw new ArgumentOutOfRangeException
-			(
-				nameof(Size.Y),
-				Size.Y,
-				"the voxels' y size must be greater than 0"
-			);
-		}
-
-		if (Size.Z <= 0)
-		{
-			throw new ArgumentOutOfRangeException
-			(
-				nameof(Size.Z),
-				Size.Z,
-				"the voxels' z size must be greater than 0"
-			);
-		}
-
-		// Generate voxels.
-
 		_voxels = new Voxel[Size.X, Size.Y, Size.Z];
 
 		for (var x = 0; x < _voxels.GetLength(0); ++x)
