@@ -112,7 +112,7 @@ internal partial class Voxels : Node
 	/// The phase in z for the cosine.
 	/// </summary>
 	[Export]
-	public float ZPhase { get; set; } = 0;
+	public float ZPhase { get; private set; } = 0;
 
 	#endregion
 
