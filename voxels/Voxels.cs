@@ -107,7 +107,7 @@ internal partial class Voxels : Node
 	/// The frequency in z for the cosine.
 	/// </summary>
 	[Export]
-	public float ZFrequency { get; set; } = 1;
+	public float ZFrequency { get; private set; } = 1;
 	/// <summary>
 	/// The phase in z for the cosine.
 	/// </summary>
