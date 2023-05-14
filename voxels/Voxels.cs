@@ -90,7 +90,7 @@ internal partial class Voxels : Node
 	/// The frequency in x for the cosine.
 	/// </summary>
 	[Export]
-	public float XFrequency { get; set; } = 1;
+	public float XFrequency { get; private set; } = 1;
 	/// <summary>
 	/// The phase in x for the cosine.
 	/// </summary>
