@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Camera : Camera3D
+internal partial class Camera : Camera3D
 {
 	private const float MinimumXRotation = -90;
 	private const float MaximumXRotation = 90;

@@ -5,7 +5,7 @@ namespace Formicarium.World;
 /// <summary>
 /// The game world, responsible for managing everything.
 /// </summary>
-public partial class World : Node3D
+internal partial class World : Node3D
 {
 	/// <summary>
 	/// The initial ant position. The Y position will be determined

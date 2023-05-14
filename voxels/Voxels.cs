@@ -7,7 +7,7 @@ namespace Formicarium.Voxels;
 /// <summary>
 /// The cells that make up the world.
 /// </summary>
-public partial class Voxels : Node
+internal partial class Voxels : Node
 {
 	/// <summary>
 	/// The position offset to get to an adjacent voxel.

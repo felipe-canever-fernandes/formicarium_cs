@@ -6,7 +6,7 @@ namespace Formicarium.Terrain;
 /// <summary>
 /// Contains information for building a 3D cube mesh.
 /// </summary>
-public static class Cube
+internal static class Cube
 {
 	/// <summary>
 	/// The number of vertices in a triangle.

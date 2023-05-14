@@ -1,6 +1,6 @@
 namespace Formicarium;
 
-public static class CubeSides
+internal static class CubeSides
 {
 	public enum Side
 	{

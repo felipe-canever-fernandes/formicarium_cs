@@ -1,4 +1,4 @@
 using Godot;
 
-public partial class Ant : Node3D
+internal partial class Ant : Node3D
 {}

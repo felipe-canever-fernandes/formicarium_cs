@@ -7,7 +7,7 @@ namespace Formicarium.Terrain;
 /// <summary>
 /// The procedurally-generated voxel-based world terrain.
 /// </summary>
-public partial class Terrain : Node3D
+internal partial class Terrain : Node3D
 {
 	public void Generate(Voxels.Voxels voxels)
 	{
