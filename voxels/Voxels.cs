@@ -95,7 +95,7 @@ internal partial class Voxels : Node
 	/// The phase in x for the cosine.
 	/// </summary>
 	[Export]
-	public float XPhase { get; set; } = 0;
+	public float XPhase { get; private set; } = 0;
 
 	/// <summary>
 	/// The amplitude in z for the cosine.
