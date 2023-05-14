@@ -102,7 +102,7 @@ internal partial class Voxels : Node
 	/// </summary>
 	[ExportGroup("Z Cosine Parameters", "Z")]
 	[Export]
-	public float ZAmplitude  { get; set; } = 1;
+	public float ZAmplitude  { get; private set; } = 1;
 	/// <summary>
 	/// The frequency in z for the cosine.
 	/// </summary>
