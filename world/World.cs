@@ -12,7 +12,7 @@ internal partial class World : Node3D
 	/// automatically based on the terrain.
 	/// </summary>
 	[Export]
-	private Vector3 AntPosition { get; set; }
+	private Vector3 AntInitialPosition { get; set; }
 
 	public override void _Ready()
 	{
@@ -32,7 +32,7 @@ internal partial class World : Node3D
 
 		void PlaceAntOnGround(out Vector3 originalCameraOffsetFromAnt)
 		{
-			var position = (Vector3I)AntPosition;
+			var position = (Vector3I)AntInitialPosition;
 
 			for (position.Y = voxels.Size.Y - 1; position.Y >= 0; --position.Y)
 			{
@@ -43,7 +43,7 @@ internal partial class World : Node3D
 			}
 
 			originalCameraOffsetFromAnt = camera.Position - ant.Position;
-			ant.Position = AntPosition with { Y = position.Y + 1 };
+			ant.Position = AntInitialPosition with { Y = position.Y + 1 };
 		}
 	
 		void PlaceCamera(Vector3 cameraOffsetFromAnt)

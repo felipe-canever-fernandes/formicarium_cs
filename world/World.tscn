@@ -12,7 +12,7 @@ ambient_light_color = Color(0.690196, 0.690196, 0.690196, 1)
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_1gday")
-AntPosition = Vector3(10.5, 0, 10.5)
+AntInitialPosition = Vector3(10.5, 0, 10.5)
 
 [node name="Voxels" parent="." instance=ExtResource("1_bhkwe")]
 Size = Vector3i(50, 50, 50)
